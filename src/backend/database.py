@@ -9,14 +9,14 @@ from sqlalchemy.orm import sessionmaker
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-db_path = BASE_DIR / "songs.db"
+db_path = BASE_DIR / "data/songs.db"
 DATABASE_URL = f"sqlite:///{db_path}"
 engine: Engine = create_engine(DATABASE_URL)
 SessionLocal: sessionmaker[Session] = sessionmaker(bind=engine)
 Base = declarative_base()
 
 def init_db():
-    if not Path("songs.db").exists():
+    if not Path("data/songs.db").exists():
         return
 
 def get_db():
