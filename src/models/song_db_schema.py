@@ -4,9 +4,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime, timezone
 from .model import Song
-
-Base = declarative_base()
-
+from back_end.database import Base
 
 class SongData(Base):
     __tablename__ = 'song_data'

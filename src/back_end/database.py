@@ -4,18 +4,20 @@ from sqlalchemy.engine.base import Engine
 from sqlalchemy.orm.session import Session
 from mimetypes import init
 from sqlalchemy import create_engine, Column, Integer, String, Float, select
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from models.song_db_schema import Base as SongBase, SongData
 from pathlib import Path
 
-DATABASE_URL = "sqlite:///./songs.db"
+BASE_DIR = Path(__file__).resolve().parents[2]
+db_path = BASE_DIR / "songs.db"
+DATABASE_URL = f"sqlite:///{db_path}"
 engine: Engine = create_engine(DATABASE_URL)
-Base = SongBase
 SessionLocal: sessionmaker[Session] = sessionmaker(bind=engine)
+Base = declarative_base()
 
 def init_db():
     if not Path("songs.db").exists():
-        Base.metadata.create_all(bind=engine)
+        return
 
 def get_db():
     db = SessionLocal()
