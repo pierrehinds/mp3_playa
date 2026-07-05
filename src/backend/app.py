@@ -1,12 +1,19 @@
 from fastapi import FastAPI
-from database import engine, Base
-from models import SongData
-from backend.routes.song_list import router as song_list
-from backend.routes.play_song import router as play_song
+from fastapi.middleware.cors import CORSMiddleware
 
+from backend.routes.play_song import router as play_song
+from backend.routes.song_list import router as song_list
+
+from .database import Base, engine
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 app.include_router(router=song_list)
 app.include_router(router=play_song)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
