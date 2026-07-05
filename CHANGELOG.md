@@ -8,4 +8,4 @@
  - Environment set up with uv
  - Initial endpoint for song list retrieval
  - Schema for song database
- - AI Generated
+ - AI generated front end application
